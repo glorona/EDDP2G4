@@ -35,12 +35,15 @@ public class AvanceMain {
         ArbolBinario preguntas = sys.getCa().getArbolpreguntas();
         ArbolBinario animales = sys.getCa().getArbolanimales();
         
-        int contador = 0;        
+        int contador = 0;     
+        
+        System.out.println("Tratare de adivinar el animal en el que estas pensando\n(solo acepto respuestas si/no)\n");
         
         do {
             System.out.println(preguntas.data);
             
             String respuesta = sc.nextLine();
+            
             
             if(respuesta.equals("si")) {
                 animales = animales.izq;

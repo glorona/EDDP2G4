@@ -1,0 +1,27 @@
+¿Es de sangre caliente (temperatura interna constante)?
+¿Nacen vivos de la madre?
+¿Su piel es escamosa o tiene caparazón?
+¿Respira por branquias?
+¿Tiene alas?
+¿Tiene plumas?
+¿Cambia de color?
+¿Es carnivoro?
+¿Es herbívoro?
+¿Se considera comida?
+¿Es un animal nocturno?
+¿Es domesticable?
+¿Es un animal de granja?
+¿Tiene cuernos?
+¿Es acuático?
+¿Vive en arboles?
+¿Se guía por el sonido?
+¿Vive en colonias?
+¿Tiene pico?
+¿Tiene trompa?
+¿Es carroñero?
+¿Es considerado un consumidor primario?
+¿Es considerado un consumidor secundario?
+¿Es reconocido por sus manchas?
+¿Tiene rayas?
+¿Es más grande que un humano?
+¿Es roedor?

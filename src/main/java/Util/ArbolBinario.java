@@ -22,6 +22,44 @@ public class ArbolBinario<E extends Comparable<E>>{
         this.izq = this.der = null;
     }
     
+
+    public boolean isLeaf(){
+        return izq==null && der==null;
+    }
+    
+    
+     
+    
+    public boolean insertaNodo(boolean confirmacion,E datos){
+       if(datos == null){
+           return false;
+       }
+        
+        if(confirmacion){
+            if(this.izq != null){
+                this.izq.insertaNodo(true,datos);
+            }
+            else{
+                System.out.println("Inserta nodo izquierda");
+                this.izq = new ArbolBinario<E>(datos);
+                return true;
+            }
+        }
+        else{
+            if(this.der != null){
+                this.der.insertaNodo(false, datos);
+            }
+            else{
+                System.out.println("Inserta nodo Derecha");
+                this.der = new ArbolBinario<E>(datos);
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    
+    //metodo ya no se utiliza
     public boolean insert(E datos){
         if(!(datos != null)){
             return false;

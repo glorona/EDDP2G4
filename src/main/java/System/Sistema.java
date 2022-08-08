@@ -27,8 +27,12 @@ public class Sistema {
     public ArrayList<Pregunta> getListaPr() {
         return listaPr;
     }
+
+    public CreaArbol getCa() {
+        return ca;
+    }
     
-    
+        
     public Sistema(){
         
         listaPr = pr.getPreguntas(AvanceMain.rutaPreg);
@@ -37,9 +41,7 @@ public class Sistema {
         
         ca.buildArbolAnimales(listaAn);
         
-        
-        System.out.println("ola");
-        
+                
     }
     
 }

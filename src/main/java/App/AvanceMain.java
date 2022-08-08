@@ -7,6 +7,8 @@ package App;
 import System.Animal;
 import System.Pregunta;
 import System.Sistema;
+import Util.ArbolBinario;
+import java.util.Scanner;
 
 /**
  *
@@ -25,8 +27,44 @@ public class AvanceMain {
    
     
     public static void main(String[] args) {
-        System.out.println("Prueba pum");
         
+        Scanner sc = new Scanner(System.in);
+        
+        boolean salida = true;
+        
+        ArbolBinario preguntas = sys.getCa().getArbolpreguntas();
+        ArbolBinario animales = sys.getCa().getArbolanimales();
+        
+        int contador = 0;        
+        
+        do {
+            System.out.println(preguntas.data);
+            
+            String respuesta = sc.nextLine();
+            
+            if(respuesta.equals("si")) {
+                animales = animales.izq;
+                preguntas = preguntas.izq;
+                contador++;
+                continue;
+            }
+            if(respuesta.equals("no")) {
+                animales = animales.der;
+                preguntas = preguntas.der;
+                contador++;
+                continue;
+            }
+        }
+        
+        while(contador <= sys.getListaPr().size()-1);
+        
+        try {
+            System.out.println(animales.data);
+        }
+        catch(NullPointerException Ex){
+            System.out.println("No se del animal en que estes pensando :c");
+        }
+            
         
         /*
         for(Animal a:sys.getListaAn()){

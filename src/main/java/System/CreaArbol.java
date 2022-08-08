@@ -67,7 +67,7 @@ public class CreaArbol{
     }
     
     public void buildRutaTree(Animal a, ArbolBinario<String> arbol){
-        System.out.println("Animal: " + a.getAnimal());
+        
         
         //creo la cola
         Queue<ArbolBinario<String>> q = new LinkedList<ArbolBinario<String>>();
@@ -98,12 +98,12 @@ public class CreaArbol{
     
     public ArbolBinario<String> creaRama(ArbolBinario<String> arbol, ArbolBinario<String> tmp){
            
-            System.out.println("Valor considerado: " + tmp.data);
+            
             if(tmp.data.equals("si")){
                 
                     if(arbol.izq == null){
                
-                    System.out.println("Asignacion");
+                    
                     arbol.izq = tmp;
                     return arbol.izq;
                     }
@@ -115,7 +115,7 @@ public class CreaArbol{
             if(tmp.data.equals("no")){
                     if(arbol.der == null){
                
-                    System.out.println("Asignacion");
+                    
                     arbol.der = tmp;
                     return arbol.der;
                     }

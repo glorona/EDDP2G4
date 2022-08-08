@@ -40,7 +40,6 @@ public class ArbolBinario<E extends Comparable<E>>{
                 this.izq.insertaNodo(true,datos);
             }
             else{
-                System.out.println("Inserta nodo izquierda");
                 this.izq = new ArbolBinario<E>(datos);
                 return true;
             }
@@ -50,7 +49,6 @@ public class ArbolBinario<E extends Comparable<E>>{
                 this.der.insertaNodo(false, datos);
             }
             else{
-                System.out.println("Inserta nodo Derecha");
                 this.der = new ArbolBinario<E>(datos);
                 return true;
             }

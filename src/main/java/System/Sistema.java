@@ -39,7 +39,8 @@ public class Sistema {
         listaAn = an.getAnimales(AvanceMain.rutaResp);
         ca = new CreaArbol(listaAn, listaPr);
         
-        ca.buildArbolAnimales(listaAn);
+        System.out.println("aaaaaaaaaaa");
+        
         
                 
     }

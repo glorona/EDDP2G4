@@ -31,19 +31,29 @@ public class CreaArbol{
     public CreaArbol(ArrayList<Animal> animales, ArrayList<Pregunta> preguntas){
         //agregamos raiz
         this.arbolpreguntas = new ArbolBinario<String>(preguntas.get(0).getPregunta());
-        this.arbolpreguntas.insertaNodo(true, preguntas.get(1).getPregunta());
-        this.arbolpreguntas.insertaNodo(false, preguntas.get(1).getPregunta());
-        
-        
-        for(int i=2; i<preguntas.size(); i++){ //arbol espejo
-            rellenaPreguntas(preguntas.get(i).getPregunta(),this.arbolpreguntas.izq);
-            rellenaPreguntas(preguntas.get(i).getPregunta(),this.arbolpreguntas.der);
-            
-        }
+        this.arbolpreguntas = obtenerArbolPreguntas(preguntas);
+        this.arbolanimales = obtenerArbol(animales);
 
         
-        this.arbolanimales = new ArbolBinario<String>("Raiz");
         
+    }
+    
+    public ArbolBinario<String> obtenerArbolPreguntas(ArrayList<Pregunta> preguntas){
+        
+        ArbolBinario<String> arbolFinal = new ArbolBinario(preguntas.get(0).getPregunta());
+        preguntas.remove(0);
+        Queue<String> preguntaQ = new LinkedList<String>();
+            
+        for(Pregunta p: preguntas){
+        
+            preguntaQ.offer(p.getPregunta());
+            
+        }
+    //no c como lo inicialices pero tiene que estar vacio
+    while (!preguntaQ.isEmpty()){
+      insertarAmbos(arbolFinal, preguntaQ);
+    }
+    return arbolFinal;  
     }
     
     public void rellenaPreguntas(String pregunta, ArbolBinario<String> arbol){
@@ -54,82 +64,64 @@ public class CreaArbol{
     }
     
     
-    
-    
-    public void buildArbolAnimales(ArrayList<Animal> listaA){
-        
-        for(Animal a: listaA){
-            
-            buildRutaTree(a,this.arbolanimales);
-            
+    public void insertarAmbos(ArbolBinario<String> arbol, Queue<String> q){
+        String info = q.poll();
+        if(arbol.izq == null){
+            arbol.izq = new ArbolBinario<String>(info);
+        }
+        else{
+        insertarAmbos(arbol.izq,q);
+        }
+        if(arbol.der == null){
+            arbol.der = new ArbolBinario<String>(info);
+        }
+        else{
+        insertarAmbos(arbol.der,q);
         }
         
     }
     
-    public void buildRutaTree(Animal a, ArbolBinario<String> arbol){
+    
+    
+  
+    
+     public void insertar(ArbolBinario<String> arbol, Queue<String> q){ //queue de info del animal ej si si no oso
+    String info = q.poll();
+    if(info.equals("si")){
+      if (arbol.izq== null) {
+        arbol.izq = new ArbolBinario<String>(info);
+      } 
+      insertar(arbol.izq, q);
+    } 
+    else if(info.equals("no")){
+      if (arbol.der== null) {
+        arbol.der = new ArbolBinario<String>(info);
+      } 
+      insertar(arbol.der, q);
+    } else{
+      arbol.data = info;
+    }
+  }
+     
+   public ArbolBinario<String> obtenerArbol(ArrayList<Animal> animales){
         
-        
-        //creo la cola
-        Queue<ArbolBinario<String>> q = new LinkedList<ArbolBinario<String>>();
+        Queue<Queue<String>> animalesInfo = new LinkedList<Queue<String>>();
+            
+        for(Animal a: animales){
+            Queue<String> q = new LinkedList<String>();
         //obtengo el orden de los nodos
-        for(String condicion: a.getRuta()){
-                q.offer(new ArbolBinario<String>(condicion));
+            for(String condicion: a.getRuta()){
+                q.offer(condicion);
                 
-                
-        }
-        
-        
-        ArbolBinario<String> tmp = q.poll();
-        ArbolBinario<String> bintreeact = creaRama(arbol,tmp);
-        
-        while(!q.isEmpty()){
-            tmp = q.poll();
-            bintreeact = creaRama(bintreeact,tmp);
-            
-        }
-        
-        bintreeact.data = a.getAnimal();
-        
- 
-        
-            
-        
-    }
-    
-    public ArbolBinario<String> creaRama(ArbolBinario<String> arbol, ArbolBinario<String> tmp){
-           
-            
-            if(tmp.data.equals("si")){
-                
-                    if(arbol.izq == null){
-               
-                    
-                    arbol.izq = tmp;
-                    return arbol.izq;
-                    }
-                    else{
-                        return arbol.izq;
-                    }
-                    
-            }
-            if(tmp.data.equals("no")){
-                    if(arbol.der == null){
-               
-                    
-                    arbol.der = tmp;
-                    return arbol.der;
-                    }
-                    else{
-                        return arbol.der;
-                    }
-                    
                 
             }
-            
-            return null;
+            q.offer(a.getAnimal());
+            animalesInfo.offer(q);
+        }
+    ArbolBinario<String> arbolFinal = new ArbolBinario("raiz"); //no c como lo inicialices pero tiene que estar vacio
+    while (!animalesInfo.isEmpty()){
+      insertar(arbolFinal, animalesInfo.poll());
     }
-   
-    
-    
-   
+    return arbolFinal;
+  }
 }

@@ -1,8 +1,6 @@
 App\App.class
-App\SecondaryController.class
 Util\ArrayList$1.class
 Util\ArrayList.class
-App\PrimaryController.class
 module-info.class
 Util\List.class
 App\IniciaApp.class

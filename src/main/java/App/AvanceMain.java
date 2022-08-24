@@ -16,10 +16,10 @@ import java.util.Scanner;
  */
 public class AvanceMain {
     
-    public static String rutaPreg = "Archivos/preguntas.txt";
+    public static String rutaPreg = "Archivos/preguntas-avance.txt";
     
     
-    public static String rutaResp = "Archivos/respuestas.txt";
+    public static String rutaResp = "Archivos/respuestas-avance.txt";
     
    
     public static Sistema sys = new Sistema();

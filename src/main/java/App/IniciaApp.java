@@ -10,8 +10,8 @@ package App;
  */
 public class IniciaApp {
     
-        public static void main(final String[] args) {
+    public static void main(final String[] args) {
         App.main(args);
-        }
+    }
     
 }

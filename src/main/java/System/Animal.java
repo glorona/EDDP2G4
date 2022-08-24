@@ -39,28 +39,25 @@ public class Animal {
     
     public ArrayList<Animal> getAnimales(String ruta){
         ArrayList<Animal> listanimal = new ArrayList<Animal>();
-         try(InputStream input = new URL("file:" + ruta).openStream()){
-             BufferedReader lector = new BufferedReader(new InputStreamReader(input));
-             String linea = null;
-             while((linea = lector.readLine())!= null){
-                 String[] datosline = linea.split(" ");
-                 
-                 String name = datosline[0];
-                 Animal atemp = new Animal(name);
-                 for(int i = 1; i<datosline.length; i++){
-                     atemp.ruta_arb.addLast(datosline[i]);
-                 }
-                 listanimal.addLast(atemp);
-                 
-             }
-         }
-         catch(IOException ex){
-             System.out.println(ex.getMessage());
-             
-         }
-         return listanimal;
-        
-        
+        try(InputStream input = new URL("file:" + ruta).openStream()){
+            BufferedReader lector = new BufferedReader(new InputStreamReader(input));
+            String linea = null;
+            while((linea = lector.readLine())!= null){
+                String[] datosline = linea.split(" ");
+
+                String name = datosline[0];
+                Animal atemp = new Animal(name);
+                for(int i = 1; i<datosline.length; i++){
+                    atemp.ruta_arb.addLast(datosline[i]);
+                }
+                listanimal.addLast(atemp);
+            }
+        }
+        catch(IOException ex){
+            System.out.println(ex.getMessage());
+
+        }
+        return listanimal;
     }
     
     

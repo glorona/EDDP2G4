@@ -19,6 +19,7 @@ import java.nio.charset.StandardCharsets;
 public class Animal {
     
     private String nombre;
+    private String rutaFoto;
     private ArrayList<String> ruta_arb;
     
     public Animal(){
@@ -28,6 +29,7 @@ public class Animal {
     public Animal(String n){
         this.nombre = n;
         this.ruta_arb = new ArrayList<String>();
+        this.rutaFoto = "";
     }
     
     public String getAnimal(){
@@ -37,6 +39,20 @@ public class Animal {
     public ArrayList<String> getRuta(){
         return this.ruta_arb;
     }
+
+    public void setRutaFoto(String rutaFoto) {
+        this.rutaFoto = rutaFoto;
+    }
+
+    public String getRutaFoto() {
+        return rutaFoto;
+    }
+    
+    
+    
+    
+    
+    
     
     public ArrayList<Animal> getAnimales(String ruta){
         ArrayList<Animal> listanimal = new ArrayList<Animal>();
@@ -44,10 +60,22 @@ public class Animal {
             BufferedReader lector = new BufferedReader(new InputStreamReader(input, StandardCharsets.UTF_8));
             String linea = null;
             while((linea = lector.readLine())!= null){
-                String[] datosline = linea.split(" ");
+                String rutafoto = Sistema.rutaDefectoAnimal;
+                String[] datosfoto = linea.split("#");
+                if(datosfoto.length > 1){
+                    if(datosfoto[0].equals("")){
+                        rutafoto = Sistema.rutaDefectoAnimal;
+                    }
+                    else{
+                    rutafoto = datosfoto[0]; 
+                    }
+                }
+                
+                String[] datosline = datosfoto[datosfoto.length-1].split(" ");
 
                 String name = datosline[0];
                 Animal atemp = new Animal(name);
+                atemp.setRutaFoto(rutafoto);
                 for(int i = 1; i<datosline.length; i++){
                     atemp.ruta_arb.addLast(datosline[i]);
                 }

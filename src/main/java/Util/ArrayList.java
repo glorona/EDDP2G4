@@ -4,6 +4,7 @@
  */
 package Util;
 
+import java.util.Collection;
 import java.util.Iterator;
 
 /**
@@ -235,4 +236,13 @@ public class ArrayList<E> implements List<E>, Iterable<E>{
         }
     }
     
+        
+    public boolean addAll(Collection<? extends E> c) {
+    Object[] a = c.toArray();
+    int numNew = a.length;
+    
+    System.arraycopy(a, 0, arreglo, tam, numNew);
+    tam += numNew;
+    return numNew != 0;
+    }
 }

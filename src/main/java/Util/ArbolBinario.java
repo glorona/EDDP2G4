@@ -28,6 +28,7 @@ public class ArbolBinario<E extends Comparable<E>>{
     }
     
     
+    
      
     
     public boolean insertaNodo(boolean confirmacion,E datos){

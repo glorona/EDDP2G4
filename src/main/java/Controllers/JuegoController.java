@@ -113,7 +113,19 @@ public class JuegoController implements Initializable {
             txtPregunta.setText("No se del animal en que estes pensando :c");
             apagarBotones();
         }
-    } 
+    }
+    
+    private ArrayList<String> endGame(ArbolBinario<String> preguntas){
+        ArrayList<String> endgamelista = new ArrayList<String>();
+        endgamelista = sys.getRespuestasFinales(preguntas,endgamelista);
+        for(String egp: endgamelista){
+            if(!verificarRespuesta(egp,sys.getNomAn())){
+                endgamelista.remove(endgamelista.indexOf(egp));
+            }
+        }
+        return endgamelista;
+        
+    }
     
     private void respuesta(ArbolBinario<String> preguntas) {
         boolean conf = verificarRespuesta(preguntas.data,sys.getNomAn());

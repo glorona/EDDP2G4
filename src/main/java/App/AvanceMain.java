@@ -8,6 +8,7 @@ import System.Animal;
 import System.Pregunta;
 import System.Sistema;
 import Util.ArbolBinario;
+import Util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -16,10 +17,10 @@ import java.util.Scanner;
  */
 public class AvanceMain {
     
-    public static String rutaPreg = "Archivos/preguntas-avance2.txt";
+    public static String rutaPreg = "archivos/preguntas-avance2.txt";
     
     
-    public static String rutaResp = "Archivos/respuestas-avance2.txt";
+    public static String rutaResp = "archivos/respuestas-avance2.txt";
     
    
     public static Sistema sys = new Sistema(rutaResp,rutaPreg);
@@ -36,7 +37,10 @@ public class AvanceMain {
         int contador = 0;     
         
         System.out.println("Tratare de adivinar el animal en el que estas pensando\n(solo acepto respuestas si/no)\n");
-        
+        ArrayList<Animal> respuestasFin = sys.getListaAn();
+        for(Animal a: respuestasFin){
+            System.out.println(a.getAnimal() + " Ruta: " + a.getRutaFoto());
+        }
        
             
         

@@ -78,7 +78,9 @@ public class JuegoController implements Initializable {
                 if(preguntas.isLeaf()){
                     respuesta(preguntas);
                 }
+                else{
                 mostrarPregunta(preguntas);
+                }
             }
             else{
                 respuesta(preguntas);
@@ -99,7 +101,9 @@ public class JuegoController implements Initializable {
                 if(preguntas.isLeaf()){
                     respuesta(preguntas);
                 }
+                else{
                 mostrarPregunta(preguntas);
+                }
             }
             else{
                 respuesta(preguntas);
@@ -112,9 +116,26 @@ public class JuegoController implements Initializable {
     } 
     
     private void respuesta(ArbolBinario<String> preguntas) {
+        boolean conf = verificarRespuesta(preguntas.data,sys.getNomAn());
+        if(conf){
         apagarBotones();
         txtPregunta.setText(preguntas.data);
         setImage("imagenes/felicidad.png");
+        }
+        else{
+            txtPregunta.setText("No se del animal en que estes pensando :c");
+            apagarBotones();
+        }
+    }
+    
+    private boolean verificarRespuesta(String respuesta, ArrayList<String> animales){
+        if(animales.contains(respuesta)){
+            return true;
+        }
+        else{
+            return false;
+        }
+        
     }
     
     private void setImage(String ruta) {

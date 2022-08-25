@@ -20,6 +20,7 @@ public class Sistema {
     
     private ArrayList<Animal> listaAn = new ArrayList<Animal>();
     private ArrayList<Pregunta> listaPr = new ArrayList<Pregunta>();
+    private ArrayList<String> nomAn = new ArrayList<String>();
     private ArbolBinario<String> preguntas;
 
     public ArrayList<Animal> getListaAn() {
@@ -32,6 +33,10 @@ public class Sistema {
 
     public CreaArbol getCa() {
         return ca;
+    }
+
+    public ArrayList<String> getNomAn() {
+        return nomAn;
     }
 
 
@@ -50,6 +55,10 @@ public class Sistema {
         ca = new CreaArbol(listaAn, listaPr);
         preguntas = ca.getArbolpreguntas();   
         ca.rellenaRespuestas(preguntas, listaAn);
+        
+        for(Animal a: listaAn){
+            nomAn.addLast(a.getAnimal());
+        }
     }
     
     

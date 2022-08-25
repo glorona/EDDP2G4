@@ -28,11 +28,11 @@ import javafx.scene.text.Text;
  */
 public class JuegoController implements Initializable {
     
-    public static String rutaPreg = "Archivos/preguntas-avance.txt";
+    public static String rutaPreg = "Archivos/preguntas-avance2.txt";
     
-    public static String rutaResp = "Archivos/respuestas-avance.txt";
+    public static String rutaResp = "Archivos/respuestas-avance2.txt";
     
-    public static Sistema sys = new Sistema();
+    public static Sistema sys;
     
     public static ArbolBinario<String> animales;
     
@@ -60,6 +60,7 @@ public class JuegoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
+            sys = new Sistema(rutaResp,rutaPreg);
             
             animales = sys.getAnimales();
     

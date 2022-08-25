@@ -22,7 +22,7 @@ public class AvanceMain {
     public static String rutaResp = "Archivos/respuestas-avance2.txt";
     
    
-    public static Sistema sys = new Sistema();
+    public static Sistema sys = new Sistema(rutaResp,rutaPreg);
     
    
     

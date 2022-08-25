@@ -46,10 +46,10 @@ public class Sistema {
     
     
         
-    public Sistema(){
+    public Sistema(String rutaAni, String rutaPreg){
         
-        listaPr = pr.getPreguntas(AvanceMain.rutaPreg);
-        listaAn = an.getAnimales(AvanceMain.rutaResp);
+        listaPr = pr.getPreguntas(rutaPreg);
+        listaAn = an.getAnimales(rutaAni);
         ca = new CreaArbol(listaAn, listaPr);
         preguntas = ca.getArbolpreguntas();
         animales = ca.getArbolanimales();

@@ -55,18 +55,35 @@ public class JuegoController implements Initializable {
         this.rutaResp = rutaR;
         sys = new Sistema(rutaResp, rutaPreg);
         preguntas = sys.getPreguntas();
-        txtPregunta.setText(preguntas.data);
+        juego(preguntas);
     }
+    
+    public void juego(ArbolBinario<String> arbol){
+        mostrarPregunta(arbol);
+    }
+    
+    public void mostrarPregunta(ArbolBinario<String> arbol){
+        txtPregunta.setText(arbol.data);
+        
+    }
+    
+    
     
     @FXML
     private void bttSi(ActionEvent event) throws FileNotFoundException {
         try {
             setImage(rutasFotos.get(random.nextInt(0, 3)));
-            if(preguntas.isLeaf()) {
-                respuesta(preguntas);
+            if(!preguntas.isLeaf()) {
+                preguntas = preguntas.izq;
+                if(preguntas.isLeaf()){
+                    respuesta(preguntas);
+                }
+                mostrarPregunta(preguntas);
             }
-            preguntas = preguntas.izq;
-            txtPregunta.setText(preguntas.data);
+            else{
+                respuesta(preguntas);
+            
+            }
         } catch(NullPointerException Ex){
             txtPregunta.setText("No se del animal en que estes pensando :c");
             apagarBotones();
@@ -77,11 +94,17 @@ public class JuegoController implements Initializable {
     private void bttNo(ActionEvent event) throws FileNotFoundException {
         try {
             setImage(rutasFotos.get(random.nextInt(0, 3)));
-            if(preguntas.isLeaf()) {
-                respuesta(preguntas);
+            if(!preguntas.isLeaf()) {
+                preguntas = preguntas.der;
+                if(preguntas.isLeaf()){
+                    respuesta(preguntas);
+                }
+                mostrarPregunta(preguntas);
             }
-            preguntas = preguntas.der;
-            txtPregunta.setText(preguntas.data);
+            else{
+                respuesta(preguntas);
+            
+            }
         } catch(NullPointerException Ex){
             txtPregunta.setText("No se del animal en que estes pensando :c");
             apagarBotones();

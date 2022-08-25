@@ -80,10 +80,32 @@ public class CreaArbol{
     
    
     
-    public void rellenaPreguntas(String pregunta, ArbolBinario<String> arbol){
+    public void rellenaRespuestas(ArbolBinario<String> preguntas, ArrayList<Animal> animales){
+        ArbolBinario<String> arbol = preguntas;
         
-        arbol.insertaNodo(true, pregunta);
-        arbol.insertaNodo(false, pregunta);
+        ArbolBinario<String> navegar = preguntas;
+        
+        for(Animal a: animales){
+            navegar = preguntas;
+            ArrayList<String> ruta = a.getRuta();
+            for(int i = 0; i<ruta.size()-1;i++){
+                if(ruta.get(i).equals("si")){
+                    navegar = navegar.izq;
+                }
+                else{
+                    navegar = navegar.der;
+                }
+                
+            }
+            if(ruta.getLast().equals("si")){
+                navegar.izq = new ArbolBinario<String>(a.getAnimal());
+            }
+            else{
+                navegar.der = new ArbolBinario<String>(a.getAnimal());
+            }
+            
+        }
+       
         
     }
     

@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 /**
  *
@@ -40,7 +41,7 @@ public class Animal {
     public ArrayList<Animal> getAnimales(String ruta){
         ArrayList<Animal> listanimal = new ArrayList<Animal>();
         try(InputStream input = new URL("file:" + ruta).openStream()){
-            BufferedReader lector = new BufferedReader(new InputStreamReader(input));
+            BufferedReader lector = new BufferedReader(new InputStreamReader(input, StandardCharsets.UTF_8));
             String linea = null;
             while((linea = lector.readLine())!= null){
                 String[] datosline = linea.split(" ");

@@ -26,6 +26,7 @@ import javafx.scene.text.Text;
  * @author ronal
  */
 public class PrejuegoController implements Initializable {
+    private String rutaPreg;
 
     @FXML
     private ComboBox<File> cbxArchivosPreg;
@@ -55,6 +56,7 @@ public class PrejuegoController implements Initializable {
             for (final File ficheroEntrada : carpeta.listFiles()) {
                 if (ficheroEntrada.isDirectory()) {
                 } else {
+                    this.rutaPreg = "archivos\\" + cbxArchivosPreg.getValue().getName();
                     String[] separarTipo = cbxArchivosPreg.getValue().getName().split("-");
                     String nombre = separarTipo[1].substring(0, separarTipo[1].lastIndexOf("."));
                     StringBuilder sb = new StringBuilder();
@@ -62,7 +64,7 @@ public class PrejuegoController implements Initializable {
                     sb.append(nombre);
                     sb.append(".txt");
                     if(ficheroEntrada.getName().equals(sb.toString())) {
-                        txtArchResp.setText(ficheroEntrada.getName());
+                        txtArchResp.setText("archivos\\" + ficheroEntrada.getName());
                     }
                 }
             }
@@ -92,7 +94,11 @@ public class PrejuegoController implements Initializable {
     private void bttJugar(ActionEvent event) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("juego.fxml"));
-            Parent root = fxmlLoader.load();                
+            Parent root = fxmlLoader.load();   
+            
+            JuegoController jc = fxmlLoader.<JuegoController>getController();
+            jc.initData(this.rutaPreg, txtArchResp.getText());
+            
             App.scene.setRoot(root);
             } catch (IOException ex) {
         }

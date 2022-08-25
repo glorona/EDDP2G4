@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package Controllers;
 
 import static App.AvanceMain.sys;
@@ -21,24 +17,16 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
-/**
- * FXML Controller class
- *
- * @author ronal
- */
 public class JuegoController implements Initializable {
     
-    public static String rutaPreg = "Archivos/preguntas-avance2.txt";
+    private String rutaPreg;
     
-    public static String rutaResp = "Archivos/respuestas-avance2.txt";
+    private String rutaResp;
     
     public static Sistema sys;
     
-    public static ArbolBinario<String> animales;
-    
     public static ArbolBinario<String> preguntas;
     
-   
     int contador = 0; 
     
     ArrayList<String> rutasFotos = new ArrayList<>();
@@ -54,83 +42,74 @@ public class JuegoController implements Initializable {
     @FXML
     private Button bttNo;
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        try {
-            sys = new Sistema(rutaResp,rutaPreg);
-            
-            animales = sys.getAnimales();
-    
-            preguntas = sys.getPreguntas();
-    
-            rutasFotos.addLast("imagenes/tortuga.png");
-            rutasFotos.addLast("imagenes/huh.png");
-            rutasFotos.addLast("imagenes/calculadora.png");
-            
-            imageMascota.setImage(new Image(new FileInputStream("imagenes/tortuga.png")));
-            imageMascota.setFitHeight(150);
-            imageMascota.setFitWidth(225);
-            imageMascota.setPreserveRatio(true);
-            txtPregunta.setText(preguntas.data.toString());
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
-        }
+        rutasFotos.addLast("imagenes/tortuga.png");
+        rutasFotos.addLast("imagenes/huh.png");
+        rutasFotos.addLast("imagenes/calculadora.png");
+        setImage("imagenes/tortuga.png");
     }    
 
+    public void initData(String rutaP, String rutaR) {
+        this.rutaPreg = rutaP;
+        this.rutaResp = rutaR;
+        sys = new Sistema(rutaResp, rutaPreg);
+        preguntas = sys.getPreguntas();
+        txtPregunta.setText(preguntas.data);
+    }
+    
     @FXML
     private void bttSi(ActionEvent event) throws FileNotFoundException {
-        imageMascota.setImage(new Image(new FileInputStream(rutasFotos.get(random.nextInt(0, 2)))));
-        imageMascota.setFitHeight(150);
-        imageMascota.setFitWidth(225);
-        imageMascota.setPreserveRatio(true);
-        
-        animales = animales.izq;
-        preguntas = preguntas.izq;
-        contador++;
-        if(contador <= sys.getListaPr().size()-1) {
-            txtPregunta.setText(preguntas.data.toString());
+        try {
+            setImage(rutasFotos.get(random.nextInt(0, 3)));
+            if(preguntas.isLeaf()) {
+                respuesta(preguntas);
+            }
+            preguntas = preguntas.izq;
+            txtPregunta.setText(preguntas.data);
+        } catch(NullPointerException Ex){
+            txtPregunta.setText("No se del animal en que estes pensando :c");
+            apagarBotones();
         }
-        respuesta();
     }
 
     @FXML
     private void bttNo(ActionEvent event) throws FileNotFoundException {
-        imageMascota.setImage(new Image(new FileInputStream(rutasFotos.get(random.nextInt(0, 2)))));
-        imageMascota.setFitHeight(150);
-        imageMascota.setFitWidth(225);
-        imageMascota.setPreserveRatio(true);
-        
-        animales = animales.der;
-        preguntas = preguntas.der;
-        contador++;
-        if(contador <= sys.getListaPr().size()-1) {
-            txtPregunta.setText(preguntas.data.toString());
+        try {
+            setImage(rutasFotos.get(random.nextInt(0, 3)));
+            if(preguntas.isLeaf()) {
+                respuesta(preguntas);
+            }
+            preguntas = preguntas.der;
+            txtPregunta.setText(preguntas.data);
+        } catch(NullPointerException Ex){
+            txtPregunta.setText("No se del animal en que estes pensando :c");
+            apagarBotones();
         }
-        respuesta();
+    } 
+    
+    private void respuesta(ArbolBinario<String> preguntas) {
+        apagarBotones();
+        txtPregunta.setText(preguntas.data);
+        setImage("imagenes/felicidad.png");
     }
     
-    private void respuesta() {
-        if(contador > sys.getListaPr().size()-1) {
-            try {
-                txtPregunta.setText(animales.data.toString());
-                imageMascota.setImage(new Image(new FileInputStream("imagenes/felicidad.png")));
-                imageMascota.setFitHeight(150);
-                imageMascota.setFitWidth(225);
-                imageMascota.setPreserveRatio(true);
-                bttSi.setVisible(false);
-                bttNo.setVisible(false);
-            } catch(NullPointerException Ex){
-                txtPregunta.setText("No se del animal en que estes pensando :c");
-                bttSi.setVisible(false);
-                bttNo.setVisible(false);
-            } catch (FileNotFoundException ex) {
-                ex.printStackTrace();
-            }
+    private void setImage(String ruta) {
+        try {
+            imageMascota.setImage(new Image(new FileInputStream(ruta)));
+            imageMascota.setFitHeight(150);
+            imageMascota.setFitWidth(225);
+            imageMascota.setPreserveRatio(true);
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
         }
-    }    
+    }
+    
+    private void apagarBotones() {
+        bttSi.setVisible(false);
+        bttNo.setVisible(false);
+    }
+    
     
     
 }

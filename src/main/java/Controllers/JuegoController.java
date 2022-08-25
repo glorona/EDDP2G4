@@ -34,9 +34,11 @@ public class JuegoController implements Initializable {
     
     public static Sistema sys = new Sistema();
     
-    ArbolBinario preguntas = sys.getCa().getArbolpreguntas();
-    ArbolBinario animales = sys.getCa().getArbolanimales();
-
+    public static ArbolBinario<String> animales;
+    
+    public static ArbolBinario<String> preguntas;
+    
+   
     int contador = 0; 
     
     ArrayList<String> rutasFotos = new ArrayList<>();
@@ -58,6 +60,11 @@ public class JuegoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
+            
+            animales = sys.getAnimales();
+    
+            preguntas = sys.getPreguntas();
+    
             rutasFotos.addLast("imagenes/tortuga.png");
             rutasFotos.addLast("imagenes/huh.png");
             rutasFotos.addLast("imagenes/calculadora.png");

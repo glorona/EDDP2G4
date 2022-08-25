@@ -5,6 +5,7 @@
 package System;
 
 import App.AvanceMain;
+import Util.ArbolBinario;
 import Util.ArrayList;
 
 /**
@@ -19,6 +20,8 @@ public class Sistema {
     
     private ArrayList<Animal> listaAn = new ArrayList<Animal>();
     private ArrayList<Pregunta> listaPr = new ArrayList<Pregunta>();
+    private ArbolBinario<String> animales;
+    private ArbolBinario<String> preguntas;
 
     public ArrayList<Animal> getListaAn() {
         return listaAn;
@@ -31,6 +34,16 @@ public class Sistema {
     public CreaArbol getCa() {
         return ca;
     }
+
+    public ArbolBinario<String> getAnimales() {
+        return animales;
+    }
+
+    public ArbolBinario<String> getPreguntas() {
+        return preguntas;
+    }
+    
+    
     
         
     public Sistema(){
@@ -38,9 +51,8 @@ public class Sistema {
         listaPr = pr.getPreguntas(AvanceMain.rutaPreg);
         listaAn = an.getAnimales(AvanceMain.rutaResp);
         ca = new CreaArbol(listaAn, listaPr);
-        
-        System.out.println("aaaaaaaaaaa");
-        
+        preguntas = ca.getArbolpreguntas();
+        animales = ca.getArbolanimales();
         
                 
     }

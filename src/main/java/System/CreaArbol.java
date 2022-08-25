@@ -9,6 +9,8 @@ import Util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import System.Sistema;
+import Util.List;
+import java.util.Collections;
 
 /**
  *
@@ -29,11 +31,31 @@ public class CreaArbol{
 
     
     public CreaArbol(ArrayList<Animal> animales, ArrayList<Pregunta> preguntas){
-        //agregamos raiz
-        this.arbolpreguntas = new ArbolBinario<String>(preguntas.get(0).getPregunta());
         this.arbolpreguntas = obtenerArbolPreguntas(preguntas);
         this.arbolanimales = obtenerArbol(animales);
 
+        
+        
+    }
+    
+    public void insertarAmbos(ArbolBinario<String> arbol, Queue<String> q){
+        String info = q.poll();
+        if(arbol.izq == null){
+            arbol.izq = new ArbolBinario<String>(info);
+        }
+        else{
+        Queue<String> temporal = new LinkedList<String>();
+        temporal.offer(info);
+        insertarAmbos(arbol.izq,temporal);
+        }
+        if(arbol.der == null){
+            arbol.der = new ArbolBinario<String>(info);
+        }
+        else{
+        Queue<String> temporal = new LinkedList<String>();
+        temporal.offer(info);
+        insertarAmbos(arbol.der,temporal);
+        }
         
         
     }
@@ -56,6 +78,8 @@ public class CreaArbol{
     return arbolFinal;  
     }
     
+   
+    
     public void rellenaPreguntas(String pregunta, ArbolBinario<String> arbol){
         
         arbol.insertaNodo(true, pregunta);
@@ -64,22 +88,10 @@ public class CreaArbol{
     }
     
     
-    public void insertarAmbos(ArbolBinario<String> arbol, Queue<String> q){
-        String info = q.poll();
-        if(arbol.izq == null){
-            arbol.izq = new ArbolBinario<String>(info);
-        }
-        else{
-        insertarAmbos(arbol.izq,q);
-        }
-        if(arbol.der == null){
-            arbol.der = new ArbolBinario<String>(info);
-        }
-        else{
-        insertarAmbos(arbol.der,q);
-        }
-        
-    }
+    
+    
+    
+  
     
     
     

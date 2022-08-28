@@ -5,6 +5,8 @@
 package Controllers;
 
 import App.App;
+import System.Pregunta;
+import Util.ArrayList;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -18,6 +20,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
 /**
@@ -28,10 +31,15 @@ import javafx.scene.text.Text;
 public class PrejuegoController implements Initializable {
     private String rutaPreg;
 
+    private int maxNum;
     @FXML
     private ComboBox<File> cbxArchivosPreg;
     @FXML
     private Text txtArchResp;
+    @FXML
+    private TextField fieldName;
+    @FXML
+    private TextField fieldNumPreg;
 
     /**
      * Initializes the controller class.
@@ -39,6 +47,7 @@ public class PrejuegoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ObservableList<File> archivos = FXCollections.observableArrayList();
+        ObservableList<Integer> numeros = FXCollections.observableArrayList();
         
         final File carpeta = new File("archivos");
         for (final File ficheroEntrada : carpeta.listFiles()) {
@@ -57,6 +66,7 @@ public class PrejuegoController implements Initializable {
                 if (ficheroEntrada.isDirectory()) {
                 } else {
                     this.rutaPreg = "archivos\\" + cbxArchivosPreg.getValue().getName();
+                    maxNum = 0;
                     String[] separarTipo = cbxArchivosPreg.getValue().getName().split("-");
                     String nombre = separarTipo[1].substring(0, separarTipo[1].lastIndexOf("."));
                     StringBuilder sb = new StringBuilder();
@@ -66,6 +76,13 @@ public class PrejuegoController implements Initializable {
                     if(ficheroEntrada.getName().equals(sb.toString())) {
                         txtArchResp.setText("archivos\\" + ficheroEntrada.getName());
                     }
+                    
+                    Pregunta pr = new Pregunta();
+                    ArrayList<Pregunta> preguntas = pr.getPreguntas(rutaPreg);
+                    for(Pregunta p: preguntas){
+                        maxNum++;
+                    }
+                    System.out.println(maxNum);
                 }
             }
         });
@@ -93,13 +110,24 @@ public class PrejuegoController implements Initializable {
     @FXML
     private void bttJugar(ActionEvent event) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("juego.fxml"));
-            Parent root = fxmlLoader.load();   
+            int numPregJ =  Integer.parseInt(fieldNumPreg.getText());
+            if(numPregJ > maxNum) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Demasiadas preguntas");
+                alert.setContentText("El número de preguntas seleccionadas sobrepasa el número de preguntas del"
+                        + " archivo. El máximo número de preguntas admitido es " + maxNum);
+                alert.show();
+            }
+            else {
+                FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("juego.fxml"));
+                Parent root = fxmlLoader.load();   
+
+                JuegoController jc = fxmlLoader.<JuegoController>getController();
+                jc.initData(this.rutaPreg, txtArchResp.getText(), numPregJ, fieldName.getText());
+
+                App.scene.setRoot(root);
+            }
             
-            JuegoController jc = fxmlLoader.<JuegoController>getController();
-            jc.initData(this.rutaPreg, txtArchResp.getText());
-            
-            App.scene.setRoot(root);
             } catch (IOException ex) {
         }
     }

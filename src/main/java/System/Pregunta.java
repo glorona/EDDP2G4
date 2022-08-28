@@ -22,7 +22,6 @@ public class Pregunta {
     private int id = 0;
     
     public Pregunta(){
-        
     }
     
     public Pregunta(String t){

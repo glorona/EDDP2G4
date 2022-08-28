@@ -45,8 +45,6 @@ public class Sistema {
         return nomAn;
     }
 
-
-
     public ArbolBinario<String> getPreguntas() {
         return preguntas;
     }
@@ -59,12 +57,9 @@ public class Sistema {
          stb.append(rutaAgregar);
          
          return stb.toString();
-        
-        
     }
     
     public void escribirRutaUsuario(String rutaFinal, String animal, String rutaArch) throws FileNotFoundException,IOException{
-        
         StringBuilder stb = new StringBuilder();
         
         stb.append("#");
@@ -73,24 +68,14 @@ public class Sistema {
         stb.append(rutaFinal);
         stb.append("\n");
         
-        
-        
         FileOutputStream escritor = new FileOutputStream(rutaArch, true);
-          
-            OutputStreamWriter output  = new OutputStreamWriter(escritor);
-            
-            output.write(stb.toString());
-            
-            output.flush();
-            
-            output.close();
+        OutputStreamWriter output  = new OutputStreamWriter(escritor);
+        output.write(stb.toString());
+        output.flush();
+        output.close();
     }
     
-    
-    
-        
-    public Sistema(String rutaAni, String rutaPreg){
-        
+     public Sistema(String rutaAni, String rutaPreg){
         listaPr = pr.getPreguntas(rutaPreg);
         listaAn = an.getAnimales(rutaAni);
         ca = new CreaArbol(listaAn, listaPr);
@@ -103,21 +88,18 @@ public class Sistema {
     }
     
     public ArrayList<String> getRespuestasFinales(ArbolBinario<String> arbol, ArrayList<String> respuestasFin){
-            if(arbol.isLeaf()){
-                respuestasFin.addLast(arbol.data);
+        if(arbol.isLeaf()){
+            respuestasFin.addLast(arbol.data);
+        }
+        else{
+            if(arbol.izq != null){
+                getRespuestasFinales(arbol.izq,respuestasFin);
             }
-            else{
-                if(arbol.izq != null){
-                    getRespuestasFinales(arbol.izq,respuestasFin);
-                }
-                if(arbol.der != null){
-                    getRespuestasFinales(arbol.der,respuestasFin);
-                }
+            if(arbol.der != null){
+                getRespuestasFinales(arbol.der,respuestasFin);
             }
-            return respuestasFin;
-            
-            
+        }
+        return respuestasFin;
     }
-    
     
 }

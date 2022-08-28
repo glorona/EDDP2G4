@@ -236,13 +236,28 @@ public class ArrayList<E> implements List<E>, Iterable<E>{
         }
     }
     
+    @Override
+    public String toString()
+    {
+        if(isEmpty()) return "[]";
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for(int i=0;i<tam-1;i++)//hasta el penultimo elemento lleva coma
+        {
+            sb.append(arreglo[i]);
+            sb.append(",");
+        }    
+        sb.append(arreglo[tam-1]);//agrego el ultimo elemento sin coma
+        sb.append("]");
+        return sb.toString();
+    }
         
     public boolean addAll(Collection<? extends E> c) {
-    Object[] a = c.toArray();
-    int numNew = a.length;
-    
-    System.arraycopy(a, 0, arreglo, tam, numNew);
-    tam += numNew;
-    return numNew != 0;
+        Object[] a = c.toArray();
+        int numNew = a.length;
+
+        System.arraycopy(a, 0, arreglo, tam, numNew);
+        tam += numNew;
+        return numNew != 0;
     }
 }

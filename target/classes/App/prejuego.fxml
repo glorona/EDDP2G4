@@ -10,7 +10,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.PrejuegoController">
    <children>
-      <TextField layoutX="301.0" layoutY="60.0" prefHeight="25.0" prefWidth="259.0" />
+      <TextField fx:id="fieldName" layoutX="301.0" layoutY="60.0" prefHeight="25.0" prefWidth="259.0" />
       <Label layoutX="53.0" layoutY="60.0" prefHeight="28.0" prefWidth="234.0" text="INGRESA TU NOMBRE:">
          <font>
             <Font name="Comic Sans MS" size="20.0" />
@@ -21,7 +21,6 @@
             <Font name="Comic Sans MS" size="20.0" />
          </font>
       </Label>
-      <TextField layoutX="448.0" layoutY="120.0" prefHeight="25.0" prefWidth="113.0" />
       <Button layoutX="186.0" layoutY="320.0" mnemonicParsing="false" onAction="#bttRetroceder" text="Retroceder" />
       <Button layoutX="322.0" layoutY="320.0" mnemonicParsing="false" onAction="#bttJugar" prefHeight="25.0" prefWidth="75.0" text="Jugar" />
       <Label layoutX="53.0" layoutY="180.0" prefHeight="28.0" prefWidth="395.0" text="ARCHIVO PREGUNTAS:">
@@ -37,5 +36,6 @@
       <Button layoutX="526.0" layoutY="242.0" mnemonicParsing="false" onAction="#bttInfo" text="i" />
       <ComboBox fx:id="cbxArchivosPreg" layoutX="300.0" layoutY="182.0" prefHeight="25.0" prefWidth="259.0" />
       <Text fx:id="txtArchResp" layoutX="301.0" layoutY="259.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="202.13671875" />
+      <TextField fx:id="fieldNumPreg" layoutX="437.0" layoutY="122.0" prefHeight="25.0" prefWidth="124.0" />
    </children>
 </AnchorPane>

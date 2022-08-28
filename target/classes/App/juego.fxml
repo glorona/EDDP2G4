@@ -8,12 +8,32 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.JuegoController">
    <children>
-      <ImageView fx:id="imageMascota" fitHeight="150.0" fitWidth="225.0" layoutX="331.0" layoutY="185.0" pickOnBounds="true" preserveRatio="true" />
-      <Text fx:id="txtPregunta" layoutX="77.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="185.13671875">
+      <ImageView fx:id="imageMascota" fitHeight="150.0" fitWidth="225.0" layoutX="325.0" layoutY="203.0" pickOnBounds="true" preserveRatio="true" />
+      <Text fx:id="txtPregunta" layoutX="35.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="530.0">
          <font>
             <Font name="Comic Sans MS" size="36.0" />
          </font></Text>
-      <Button fx:id="bttSi" layoutX="77.0" layoutY="275.0" mnemonicParsing="false" onAction="#bttSi" prefHeight="25.0" prefWidth="65.0" text="SI" />
-      <Button fx:id="bttNo" layoutX="203.0" layoutY="275.0" mnemonicParsing="false" onAction="#bttNo" prefHeight="25.0" prefWidth="65.0" text="NO" />
+      <Button fx:id="bttSi" layoutX="66.0" layoutY="219.0" mnemonicParsing="false" onAction="#bttSi" prefHeight="25.0" prefWidth="65.0" text="SI" />
+      <Button fx:id="bttNo" layoutX="190.0" layoutY="219.0" mnemonicParsing="false" onAction="#bttNo" prefHeight="25.0" prefWidth="65.0" text="NO" />
+      <Text layoutX="40.0" layoutY="300.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Preguntas Restantes:" wrappingWidth="183.13671875">
+         <font>
+            <Font name="Comic Sans MS" size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="txtNumPreg" layoutX="230.0" layoutY="300.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font name="Comic Sans MS" size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="40.0" layoutY="340.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:" wrappingWidth="79.13671875">
+         <font>
+            <Font name="Comic Sans MS" size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="txtName" layoutX="119.0" layoutY="339.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="183.13671875">
+         <font>
+            <Font name="Comic Sans MS" size="18.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

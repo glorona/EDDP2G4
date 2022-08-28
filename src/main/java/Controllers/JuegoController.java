@@ -27,7 +27,7 @@ public class JuegoController implements Initializable {
     
     public static ArbolBinario<String> preguntas;
     
-    int contador = 0; 
+    int contador; 
     
     ArrayList<String> rutasFotos = new ArrayList<>();
     
@@ -41,6 +41,10 @@ public class JuegoController implements Initializable {
     private Button bttSi;
     @FXML
     private Button bttNo;
+    @FXML
+    private Text txtNumPreg;
+    @FXML
+    private Text txtName;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -50,11 +54,14 @@ public class JuegoController implements Initializable {
         setImage("imagenes/tortuga.png");
     }    
 
-    public void initData(String rutaP, String rutaR) {
+    public void initData(String rutaP, String rutaR, int numPreg, String name) {
         this.rutaPreg = rutaP;
         this.rutaResp = rutaR;
+        this.contador = numPreg;
         sys = new Sistema(rutaResp, rutaPreg);
         preguntas = sys.getPreguntas();
+        txtName.setText(name);
+        txtNumPreg.setText(Integer.toString(this.contador));
         juego(preguntas);
     }
     
@@ -64,27 +71,26 @@ public class JuegoController implements Initializable {
     
     public void mostrarPregunta(ArbolBinario<String> arbol){
         txtPregunta.setText(arbol.data);
-        
     }
-    
-    
-    
+       
     @FXML
     private void bttSi(ActionEvent event) throws FileNotFoundException {
         try {
             setImage(rutasFotos.get(random.nextInt(0, 3)));
+            if(this.contador < 2) {
+                System.out.println(endGame(preguntas).toString());
+                apagarBotones();
+            }
             if(!preguntas.isLeaf()) {
                 preguntas = preguntas.izq;
                 if(preguntas.isLeaf()){
                     respuesta(preguntas);
+                } else{
+                    mostrarPregunta(preguntas);
+                    actualizarContador();
                 }
-                else{
-                mostrarPregunta(preguntas);
-                }
-            }
-            else{
+            } else{
                 respuesta(preguntas);
-            
             }
         } catch(NullPointerException Ex){
             txtPregunta.setText("No se del animal en que estes pensando :c");
@@ -96,18 +102,20 @@ public class JuegoController implements Initializable {
     private void bttNo(ActionEvent event) throws FileNotFoundException {
         try {
             setImage(rutasFotos.get(random.nextInt(0, 3)));
+            if(this.contador < 2) {
+                System.out.println(endGame(preguntas).toString());
+                apagarBotones();
+            }
             if(!preguntas.isLeaf()) {
                 preguntas = preguntas.der;
                 if(preguntas.isLeaf()){
                     respuesta(preguntas);
+                } else{
+                    mostrarPregunta(preguntas);
+                    actualizarContador();
                 }
-                else{
-                mostrarPregunta(preguntas);
-                }
-            }
-            else{
+            } else{
                 respuesta(preguntas);
-            
             }
         } catch(NullPointerException Ex){
             txtPregunta.setText("No se del animal en que estes pensando :c");
@@ -117,24 +125,22 @@ public class JuegoController implements Initializable {
     
     private ArrayList<String> endGame(ArbolBinario<String> preguntas){
         ArrayList<String> endgamelista = new ArrayList<String>();
-        endgamelista = sys.getRespuestasFinales(preguntas,endgamelista);
+        endgamelista = sys.getRespuestasFinales(preguntas, endgamelista);
         for(String egp: endgamelista){
             if(!verificarRespuesta(egp,sys.getNomAn())){
                 endgamelista.remove(endgamelista.indexOf(egp));
             }
         }
         return endgamelista;
-        
     }
     
     private void respuesta(ArbolBinario<String> preguntas) {
-        boolean conf = verificarRespuesta(preguntas.data,sys.getNomAn());
+        boolean conf = verificarRespuesta(preguntas.data, sys.getNomAn());
         if(conf){
-        apagarBotones();
-        txtPregunta.setText(preguntas.data);
-        setImage("imagenes/felicidad.png");
-        }
-        else{
+            apagarBotones();
+            txtPregunta.setText(preguntas.data);
+            setImage("imagenes/felicidad.png");
+        } else {
             txtPregunta.setText("No se del animal en que estes pensando :c");
             apagarBotones();
         }
@@ -143,11 +149,9 @@ public class JuegoController implements Initializable {
     private boolean verificarRespuesta(String respuesta, ArrayList<String> animales){
         if(animales.contains(respuesta)){
             return true;
-        }
-        else{
+        } else{
             return false;
         }
-        
     }
     
     private void setImage(String ruta) {
@@ -166,6 +170,8 @@ public class JuegoController implements Initializable {
         bttNo.setVisible(false);
     }
     
-    
-    
+    private void actualizarContador() {
+        this.contador--;
+        txtNumPreg.setText(Integer.toString(this.contador));
+    }
 }

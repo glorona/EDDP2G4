@@ -48,8 +48,7 @@ public class Animal {
         return rutaFoto;
     }
     
-    
-    
+     
     
     
     

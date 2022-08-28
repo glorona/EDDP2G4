@@ -27,7 +27,7 @@ public class Sistema {
     private ArrayList<Pregunta> listaPr = new ArrayList<Pregunta>();
     private ArrayList<String> nomAn = new ArrayList<String>();
     private ArbolBinario<String> preguntas;
-    public static String rutaDefectoAnimal = "imagenes/default.png";
+    public static String rutaDefectoAnimal = "default.png";
 
     public ArrayList<Animal> getListaAn() {
         return listaAn;

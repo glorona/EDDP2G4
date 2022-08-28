@@ -97,7 +97,8 @@ public class JuegoController implements Initializable {
             FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("menuAnimales.fxml"));
             Parent root = fxmlLoader.load();
             MenuAnimalesController mac = fxmlLoader.<MenuAnimalesController>getController();
-            mac.initData(sys.getListaAn(), endGame(preguntas));
+            ArrayList<String> egl = endGame(preguntas);
+            mac.initData(sys.getListaAn(), egl);
             App.scene.setRoot(root);
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -109,19 +110,16 @@ public class JuegoController implements Initializable {
         try {
             this.rutaUser = sys.grabarRutaUsuario(rutaUser, "si");
             setImage(rutasFotos.get(random.nextInt(0, 3)));
-            
+            preguntas = preguntas.izq;
+            actualizarContador();
             if(!preguntas.isLeaf()) {
-                if(this.contador < 1) {
+                if(this.contador == 0) {
                     cargarPantalla();
                 }
-                else {
-                    preguntas = preguntas.izq;
-                    if(preguntas.isLeaf()){
-                        respuesta(preguntas);
-                    } else{
+                else{
                         mostrarPregunta(preguntas);
-                        actualizarContador();
-                    }
+                        
+                    
                 }
             } else{
                 respuesta(preguntas);
@@ -138,18 +136,15 @@ public class JuegoController implements Initializable {
         try {
             this.rutaUser = sys.grabarRutaUsuario(rutaUser, "no");
             setImage(rutasFotos.get(random.nextInt(0, 3)));
-            
+            preguntas = preguntas.der;
+            actualizarContador();
             if(!preguntas.isLeaf()) {
-                if(this.contador < 1) {
+                if(this.contador == 0) {
                     cargarPantalla();
                 } else {
-                    preguntas = preguntas.der;
-                    if(preguntas.isLeaf()){
-                        respuesta(preguntas);
-                    } else{
                         mostrarPregunta(preguntas);
-                        actualizarContador();
-                    }
+                        
+                 
                 }
             } else{
                 respuesta(preguntas);

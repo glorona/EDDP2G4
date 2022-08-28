@@ -116,7 +116,7 @@ public class PrejuegoController implements Initializable {
                 alert.show();
             }
             else{
-            int numPregJ =  Integer.parseInt(fieldNumPreg.getText())-1;
+            int numPregJ =  Integer.parseInt(fieldNumPreg.getText());
             if(numPregJ > maxNum) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Demasiadas preguntas");

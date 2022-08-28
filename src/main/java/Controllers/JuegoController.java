@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -223,7 +224,20 @@ public class JuegoController implements Initializable {
 
     @FXML
     private void bttSaveAnimal(ActionEvent event) throws IOException {
+        if(fieldNewAnimal.getText().equals("")){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Nombre de animal vacio!");
+                alert.setContentText("El nombre del animal no puede estar vacio si desea guardarlo.");
+                alert.show();
+        }
+        else{
         sys.escribirRutaUsuario(rutaUser, fieldNewAnimal.getText(), rutaResp);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Respuesta Guardada!");
+                alert.setContentText("Su respuesta ha sido grabada. Gracias por jugar!");
+                alert.show();
+        }
+        
         regresarMenu();
     }
     

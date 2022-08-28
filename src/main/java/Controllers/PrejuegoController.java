@@ -109,6 +109,13 @@ public class PrejuegoController implements Initializable {
     @FXML
     private void bttJugar(ActionEvent event) {
         try {
+            if(fieldNumPreg.getText().equals("")){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Numero de preguntas vacio!");
+                alert.setContentText("Tiene que insertar la cantidad de preguntas que vas a jugar.");
+                alert.show();
+            }
+            else{
             int numPregJ =  Integer.parseInt(fieldNumPreg.getText());
             if(numPregJ > maxNum) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -118,6 +125,21 @@ public class PrejuegoController implements Initializable {
                 alert.show();
             }
             else {
+                if(fieldName.getText().equals("")){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Nombre de jugador vacio");
+                    alert.setContentText("El nombre del jugador no puede estar vacio.");
+                    alert.show();
+                }
+                else{
+                    if(this.rutaPreg == null){
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Preguntas invalidas");
+                        alert.setContentText("Tienes que seleccionar un archivo de preguntas!.");
+                        alert.show();
+                    }
+                    else{
+                
                 FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("juego.fxml"));
                 Parent root = fxmlLoader.load();   
 
@@ -125,6 +147,9 @@ public class PrejuegoController implements Initializable {
                 jc.initData(this.rutaPreg, txtArchResp.getText(), numPregJ, fieldName.getText());
 
                 App.scene.setRoot(root);
+                }
+                }
+            }
             }
             
             } catch (IOException ex) {

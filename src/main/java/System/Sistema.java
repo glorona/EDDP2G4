@@ -62,6 +62,8 @@ public class Sistema {
     public void escribirRutaUsuario(String rutaFinal, String animal, String rutaArch) throws FileNotFoundException,IOException{
         StringBuilder stb = new StringBuilder();
         
+        stb.append(animal);
+        
         stb.append("#");
         stb.append(animal);
         stb.append(" ");

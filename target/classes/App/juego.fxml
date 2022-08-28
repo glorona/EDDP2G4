@@ -4,16 +4,13 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.JuegoController">
    <children>
       <ImageView fx:id="imageMascota" fitHeight="150.0" fitWidth="225.0" layoutX="325.0" layoutY="203.0" pickOnBounds="true" preserveRatio="true" />
-      <Text fx:id="txtPregunta" layoutX="35.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="530.0">
-         <font>
-            <Font name="Comic Sans MS" size="36.0" />
-         </font></Text>
       <Button fx:id="bttSi" layoutX="66.0" layoutY="219.0" mnemonicParsing="false" onAction="#bttSi" prefHeight="25.0" prefWidth="65.0" text="SI" />
       <Button fx:id="bttNo" layoutX="190.0" layoutY="219.0" mnemonicParsing="false" onAction="#bttNo" prefHeight="25.0" prefWidth="65.0" text="NO" />
       <Text layoutX="40.0" layoutY="300.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Preguntas Restantes:" wrappingWidth="183.13671875">
@@ -48,5 +45,19 @@
             <Font size="9.0" />
          </font>
       </Button>
+      <Button layoutX="494.0" layoutY="162.0" mnemonicParsing="false" onAction="#bttCargarFoto" text="Cargar Foto" visible="false">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Button>
+      <HBox fx:id="hbox" layoutX="49.0" layoutY="32.0" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Text fx:id="txtPregunta" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="530.0">
+               <font>
+                  <Font name="Comic Sans MS" size="36.0" />
+               </font>
+            </Text>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

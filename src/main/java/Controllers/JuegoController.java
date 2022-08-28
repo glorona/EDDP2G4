@@ -2,6 +2,7 @@ package Controllers;
 
 import App.App;
 import static App.AvanceMain.sys;
+import System.Animal;
 import System.Sistema;
 import Util.ArbolBinario;
 import Util.ArrayList;
@@ -21,6 +22,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
 public class JuegoController implements Initializable {
@@ -60,6 +62,8 @@ public class JuegoController implements Initializable {
     private Text txtNewAnimal;
     @FXML
     private Button bttSaveAnimal;
+    @FXML
+    private HBox hbox;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -107,7 +111,7 @@ public class JuegoController implements Initializable {
             setImage(rutasFotos.get(random.nextInt(0, 3)));
             
             if(!preguntas.isLeaf()) {
-                if(this.contador < 2) {
+                if(this.contador < 1) {
                     cargarPantalla();
                 }
                 else {
@@ -136,7 +140,7 @@ public class JuegoController implements Initializable {
             setImage(rutasFotos.get(random.nextInt(0, 3)));
             
             if(!preguntas.isLeaf()) {
-                if(this.contador < 2) {
+                if(this.contador < 1) {
                     cargarPantalla();
                 } else {
                     preguntas = preguntas.der;
@@ -166,10 +170,13 @@ public class JuegoController implements Initializable {
                endgamefinal.addLast(egp);
             }
         }
+        if(endgamefinal.isEmpty()) {
+            throw new NullPointerException();
+        }
         return endgamefinal;
     }
     
-    private void respuesta(ArbolBinario<String> preguntas) {
+    private void respuesta(ArbolBinario<String> preguntas) throws FileNotFoundException {
         boolean conf = verificarRespuesta(preguntas.data, sys.getNomAn());
         if(conf){
             apagarBotones();
@@ -248,6 +255,10 @@ public class JuegoController implements Initializable {
             alert.show();
             regresarMenu();
         }
+    }
+
+    @FXML
+    private void bttCargarFoto(ActionEvent event) {
     }
     
 }

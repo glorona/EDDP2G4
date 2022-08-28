@@ -177,6 +177,17 @@ public class JuegoController implements Initializable {
             apagarBotones();
             txtPregunta.setText(preguntas.data);
             setImage("imagenes/felicidad.png");
+            for(Animal an: sys.getListaAn()) {
+                System.out.println(an.getAnimal().equals(preguntas.data));
+                if (an.getAnimal().equals(preguntas.data)) {
+                    Image image = new Image(new FileInputStream("imagenes/" + an.getRutaFoto()));
+                    ImageView imageView = new ImageView(image);
+                    imageView.setFitHeight(120);
+                    imageView.setFitWidth(120);
+                    imageView.setPreserveRatio(true);
+                    hbox.getChildren().add(imageView);
+                }
+            }
         } else {
             txtPregunta.setText("No se del animal en que estes pensando :c");
             apagarBotones();

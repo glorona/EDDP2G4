@@ -88,6 +88,18 @@ public class JuegoController implements Initializable {
         txtPregunta.setText(arbol.data);
     }
        
+    private void cargarPantalla() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("menuAnimales.fxml"));
+            Parent root = fxmlLoader.load();
+            MenuAnimalesController mac = fxmlLoader.<MenuAnimalesController>getController();
+            mac.initData(sys.getListaAn(), endGame(preguntas));
+            App.scene.setRoot(root);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
     @FXML
     private void bttSi(ActionEvent event) throws FileNotFoundException {
         try {
@@ -95,9 +107,8 @@ public class JuegoController implements Initializable {
             setImage(rutasFotos.get(random.nextInt(0, 3)));
             
             if(!preguntas.isLeaf()) {
-                if(this.contador < 1) {
-                    txtPregunta.setText(endGame(preguntas).toString());
-                    apagarBotones();
+                if(this.contador < 2) {
+                    cargarPantalla();
                 }
                 else {
                     preguntas = preguntas.izq;
@@ -125,9 +136,8 @@ public class JuegoController implements Initializable {
             setImage(rutasFotos.get(random.nextInt(0, 3)));
             
             if(!preguntas.isLeaf()) {
-                if(this.contador < 1) {
-                txtPregunta.setText(endGame(preguntas).toString());
-                apagarBotones();
+                if(this.contador < 2) {
+                    cargarPantalla();
                 } else {
                     preguntas = preguntas.der;
                     if(preguntas.isLeaf()){
@@ -226,19 +236,18 @@ public class JuegoController implements Initializable {
     private void bttSaveAnimal(ActionEvent event) throws IOException {
         if(fieldNewAnimal.getText().equals("")){
             Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Nombre de animal vacio!");
-                alert.setContentText("El nombre del animal no puede estar vacio si desea guardarlo.");
-                alert.show();
+            alert.setTitle("Nombre de animal vacio!");
+            alert.setContentText("El nombre del animal no puede estar vacio si desea guardarlo.");
+            alert.show();
         }
         else{
-        sys.escribirRutaUsuario(rutaUser, fieldNewAnimal.getText(), rutaResp);
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Respuesta Guardada!");
-                alert.setContentText("Su respuesta ha sido grabada. Gracias por jugar!");
-                alert.show();
+            sys.escribirRutaUsuario(rutaUser, fieldNewAnimal.getText(), rutaResp);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Respuesta Guardada!");
+            alert.setContentText("Su respuesta ha sido grabada. Gracias por jugar!");
+            alert.show();
+            regresarMenu();
         }
-        
-        regresarMenu();
     }
     
 }

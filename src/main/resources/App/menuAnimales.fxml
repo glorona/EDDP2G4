@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MenuAnimalesController">
+   <children>
+      <Button layoutX="275.0" layoutY="328.0" mnemonicParsing="false" onAction="#bttHome" text="HOME" />
+      <Text layoutX="189.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Estoy pensando en...">
+         <font>
+            <Font name="Comic Sans MS" size="24.0" />
+         </font>
+      </Text>
+      <FlowPane fx:id="flowImagenes" layoutX="40.0" layoutY="100.0" prefHeight="200.0" prefWidth="520.0" />
+   </children>
+</AnchorPane>

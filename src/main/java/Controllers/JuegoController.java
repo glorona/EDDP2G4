@@ -126,12 +126,13 @@ public class JuegoController implements Initializable {
     private ArrayList<String> endGame(ArbolBinario<String> preguntas){
         ArrayList<String> endgamelista = new ArrayList<String>();
         endgamelista = sys.getRespuestasFinales(preguntas, endgamelista);
+        ArrayList<String> endgamefinal = new ArrayList<String>();
         for(String egp: endgamelista){
-            if(!verificarRespuesta(egp,sys.getNomAn())){
-                endgamelista.remove(endgamelista.indexOf(egp));
+            if(verificarRespuesta(egp,sys.getNomAn())){
+               endgamefinal.addLast(egp);
             }
         }
-        return endgamelista;
+        return endgamefinal;
     }
     
     private void respuesta(ArbolBinario<String> preguntas) {

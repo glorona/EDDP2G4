@@ -1,23 +1,29 @@
 package Controllers;
 
+import App.App;
 import static App.AvanceMain.sys;
 import System.Sistema;
 import Util.ArbolBinario;
 import Util.ArrayList;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
 public class JuegoController implements Initializable {
+    private String rutaUser = "";
     
     private String rutaPreg;
     
@@ -45,6 +51,14 @@ public class JuegoController implements Initializable {
     private Text txtNumPreg;
     @FXML
     private Text txtName;
+    @FXML
+    private Button bttHome;
+    @FXML
+    private TextField fieldNewAnimal;
+    @FXML
+    private Text txtNewAnimal;
+    @FXML
+    private Button bttSaveAnimal;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -76,18 +90,22 @@ public class JuegoController implements Initializable {
     @FXML
     private void bttSi(ActionEvent event) throws FileNotFoundException {
         try {
+            this.rutaUser = sys.grabarRutaUsuario(rutaUser, "si");
             setImage(rutasFotos.get(random.nextInt(0, 3)));
-            if(this.contador < 2) {
-                System.out.println(endGame(preguntas).toString());
-                apagarBotones();
-            }
+            
             if(!preguntas.isLeaf()) {
-                preguntas = preguntas.izq;
-                if(preguntas.isLeaf()){
-                    respuesta(preguntas);
-                } else{
-                    mostrarPregunta(preguntas);
-                    actualizarContador();
+                if(this.contador < 1) {
+                    txtPregunta.setText(endGame(preguntas).toString());
+                    apagarBotones();
+                }
+                else {
+                    preguntas = preguntas.izq;
+                    if(preguntas.isLeaf()){
+                        respuesta(preguntas);
+                    } else{
+                        mostrarPregunta(preguntas);
+                        actualizarContador();
+                    }
                 }
             } else{
                 respuesta(preguntas);
@@ -95,24 +113,28 @@ public class JuegoController implements Initializable {
         } catch(NullPointerException Ex){
             txtPregunta.setText("No se del animal en que estes pensando :c");
             apagarBotones();
+            botonesNewAnimal();
         }
     }
 
     @FXML
     private void bttNo(ActionEvent event) throws FileNotFoundException {
         try {
+            this.rutaUser = sys.grabarRutaUsuario(rutaUser, "no");
             setImage(rutasFotos.get(random.nextInt(0, 3)));
-            if(this.contador < 2) {
-                System.out.println(endGame(preguntas).toString());
-                apagarBotones();
-            }
+            
             if(!preguntas.isLeaf()) {
-                preguntas = preguntas.der;
-                if(preguntas.isLeaf()){
-                    respuesta(preguntas);
-                } else{
-                    mostrarPregunta(preguntas);
-                    actualizarContador();
+                if(this.contador < 1) {
+                txtPregunta.setText(endGame(preguntas).toString());
+                apagarBotones();
+                } else {
+                    preguntas = preguntas.der;
+                    if(preguntas.isLeaf()){
+                        respuesta(preguntas);
+                    } else{
+                        mostrarPregunta(preguntas);
+                        actualizarContador();
+                    }
                 }
             } else{
                 respuesta(preguntas);
@@ -120,6 +142,7 @@ public class JuegoController implements Initializable {
         } catch(NullPointerException Ex){
             txtPregunta.setText("No se del animal en que estes pensando :c");
             apagarBotones();
+            botonesNewAnimal();
         }
     }
     
@@ -169,10 +192,39 @@ public class JuegoController implements Initializable {
     private void apagarBotones() {
         bttSi.setVisible(false);
         bttNo.setVisible(false);
+        bttHome.setVisible(true);
+    }
+    
+    private void botonesNewAnimal() {
+        txtNewAnimal.setVisible(true);
+        fieldNewAnimal.setVisible(true);
+        bttSaveAnimal.setVisible(true);
     }
     
     private void actualizarContador() {
         this.contador--;
         txtNumPreg.setText(Integer.toString(this.contador));
     }
+
+    private void regresarMenu() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("menu.fxml"));
+            Parent root = fxmlLoader.load();
+            App.scene.setRoot(root);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    @FXML
+    private void bttHome(ActionEvent event) throws IOException {
+        regresarMenu();
+    }
+
+    @FXML
+    private void bttSaveAnimal(ActionEvent event) throws IOException {
+        sys.escribirRutaUsuario(rutaUser, fieldNewAnimal.getText(), rutaResp);
+        regresarMenu();
+    }
+    
 }

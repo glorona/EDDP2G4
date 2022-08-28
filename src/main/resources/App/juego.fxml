@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -35,5 +36,17 @@
             <Font name="Comic Sans MS" size="18.0" />
          </font>
       </Text>
+      <Button fx:id="bttHome" layoutX="183.0" layoutY="219.0" mnemonicParsing="false" onAction="#bttHome" prefHeight="25.0" prefWidth="79.0" text="HOME" visible="false" />
+      <TextField fx:id="fieldNewAnimal" layoutX="223.0" layoutY="160.0" prefHeight="25.0" prefWidth="242.0" visible="false" />
+      <Text fx:id="txtNewAnimal" layoutX="70.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Qué animal es?:" visible="false">
+         <font>
+            <Font name="Comic Sans MS" size="18.0" />
+         </font>
+      </Text>
+      <Button fx:id="bttSaveAnimal" layoutX="66.0" layoutY="214.0" mnemonicParsing="false" onAction="#bttSaveAnimal" prefHeight="35.0" prefWidth="65.0" text="GUARDAR Y REGRESAR" textAlignment="CENTER" visible="false" wrapText="true">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

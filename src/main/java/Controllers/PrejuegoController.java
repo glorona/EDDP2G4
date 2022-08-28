@@ -82,7 +82,6 @@ public class PrejuegoController implements Initializable {
                     for(Pregunta p: preguntas){
                         maxNum++;
                     }
-                    System.out.println(maxNum);
                 }
             }
         });

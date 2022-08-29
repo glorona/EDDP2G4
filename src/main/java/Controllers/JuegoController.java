@@ -253,6 +253,7 @@ public class JuegoController implements Initializable {
     
     @FXML
     private void bttHome(ActionEvent event) throws IOException {
+        sys.wipeSystem();
         regresarMenu();
     }
 

@@ -5,6 +5,7 @@
 package Controllers;
 
 import App.App;
+import static App.AvanceMain.sys;
 import System.Animal;
 import Util.ArrayList;
 import java.io.FileInputStream;
@@ -75,6 +76,7 @@ public class MenuAnimalesController implements Initializable {
     @FXML
     private void bttHome(ActionEvent event) {
         try {
+            sys.wipeSystem();
             FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("menu.fxml"));
             Parent root = fxmlLoader.load();
             App.scene.setRoot(root);

@@ -103,4 +103,16 @@ public class Sistema {
         return respuestasFin;
     }
     
+    public void wipeSystem(){
+        this.an = null;
+        this.ca = null;
+        this.listaAn = null;
+        this.listaPr = null;
+        this.nomAn = null;
+        this.pr = null;
+        this.preguntas = null;
+        this.rutaUsuario = "";
+        
+    }
+    
 }

@@ -6,12 +6,19 @@ import System.Animal;
 import System.Sistema;
 import Util.ArbolBinario;
 import Util.ArrayList;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Random;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,13 +31,18 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 
 public class JuegoController implements Initializable {
+    private ArrayList<Path> paths = new ArrayList<>();
+    
     private String rutaUser = "";
     
     private String rutaPreg;
     
     private String rutaResp;
+    
+    private String name;
     
     public static Sistema sys;
     
@@ -64,6 +76,8 @@ public class JuegoController implements Initializable {
     private Button bttSaveAnimal;
     @FXML
     private HBox hbox;
+    @FXML
+    private Button bttCargarFoto;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -77,9 +91,10 @@ public class JuegoController implements Initializable {
         this.rutaPreg = rutaP;
         this.rutaResp = rutaR;
         this.contador = numPreg;
+        this.name = name;
         sys = new Sistema(rutaResp, rutaPreg);
         preguntas = sys.getPreguntas();
-        txtName.setText(name);
+        txtName.setText(this.name);
         txtNumPreg.setText(Integer.toString(this.contador));
         juego(preguntas);
     }
@@ -117,9 +132,7 @@ public class JuegoController implements Initializable {
                     cargarPantalla();
                 }
                 else{
-                        mostrarPregunta(preguntas);
-                        
-                    
+                    mostrarPregunta(preguntas);
                 }
             } else{
                 respuesta(preguntas);
@@ -142,9 +155,7 @@ public class JuegoController implements Initializable {
                 if(this.contador == 0) {
                     cargarPantalla();
                 } else {
-                        mostrarPregunta(preguntas);
-                        
-                 
+                    mostrarPregunta(preguntas);
                 }
             } else{
                 respuesta(preguntas);
@@ -164,8 +175,7 @@ public class JuegoController implements Initializable {
             if(verificarRespuesta(egp,sys.getNomAn())){
                endgamefinal.addLast(egp);
             }
-        }
-        if(endgamefinal.isEmpty()) {
+        } if(endgamefinal.isEmpty()) {
             throw new NullPointerException();
         }
         return endgamefinal;
@@ -223,6 +233,7 @@ public class JuegoController implements Initializable {
         txtNewAnimal.setVisible(true);
         fieldNewAnimal.setVisible(true);
         bttSaveAnimal.setVisible(true);
+        bttCargarFoto.setVisible(true);
     }
     
     private void actualizarContador() {
@@ -252,9 +263,14 @@ public class JuegoController implements Initializable {
             alert.setTitle("Nombre de animal vacio!");
             alert.setContentText("El nombre del animal no puede estar vacio si desea guardarlo.");
             alert.show();
-        }
-        else{
-            sys.escribirRutaUsuario(rutaUser, fieldNewAnimal.getText(), rutaResp);
+        } else{
+            Path pathOrigen = this.paths.get(1);
+            Path pathDestino = this.paths.get(0);
+            Files.copy(pathOrigen, pathDestino);
+            String nombreArch = pathDestino.toString().substring(9);
+            System.out.println(nombreArch);
+            sys.escribirRutaUsuario(rutaUser, fieldNewAnimal.getText(), rutaResp, nombreArch);
+            
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Respuesta Guardada!");
             alert.setContentText("Su respuesta ha sido grabada. Gracias por jugar!");
@@ -265,6 +281,34 @@ public class JuegoController implements Initializable {
 
     @FXML
     private void bttCargarFoto(ActionEvent event) {
+        final ObservableList<String> fileExtensions = FXCollections.observableArrayList();
+        fileExtensions.add("*.png");
+        fileExtensions.add("*.jpg");
+        fileExtensions.add("*.jpeg");
+        final FileChooser fc = new FileChooser();
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Archivo de Image", fileExtensions));
+        File f = fc.showOpenDialog(null);
+        
+        if(fieldNewAnimal.getText().equals("")) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("No se cargó el archivo");
+            alert.setContentText("Debe escribir el nombre del animal antes de cargar el archivo.");
+            alert.show();
+        } else {
+            if(f != null){
+                for(Path x: paths){
+                    paths.remove(paths.indexOf(x));
+                }
+                String fileName = f.getName();
+                String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1, f.getName().length());
+                Path pathDestino = Paths.get("imagenes/" + this.name.toLowerCase() + fieldNewAnimal.getText().toLowerCase() + "." + fileExtension);
+                Path pathOrigen = Paths.get(f.getAbsolutePath());
+                this.paths.addLast(pathDestino);
+                this.paths.addLast(pathOrigen);
+            }
+        }
     }
     
 }
+    
+

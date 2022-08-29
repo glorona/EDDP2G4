@@ -36,15 +36,15 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Text layoutX="103.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre del archivo:" />
-                        <Text layoutX="103.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Número de preguntas:" />
-                        <Text layoutX="103.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Animales:" />
-                        <Text fx:id="txtNombreArch1" layoutX="223.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-                        <Text fx:id="txtNumPregun1" layoutX="233.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-                        <Text fx:id="txtAnimales1" layoutX="163.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <Text layoutX="47.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre del archivo:" />
+                        <Text layoutX="47.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Número de preguntas:" />
+                        <Text layoutX="47.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Animales:" />
+                        <Text fx:id="txtNombreArchivoE" layoutX="167.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <Text fx:id="txtNumPregE" layoutX="177.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <Text fx:id="txtAnE" layoutX="107.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="450.0" />
                         <ComboBox fx:id="cbxArchivos" layoutX="192.0" layoutY="53.0" prefHeight="29.0" prefWidth="216.0" />
-                        <Button fx:id="bttEliminarCancelar" layoutX="185.0" layoutY="298.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Cancelar" />
-                        <Button fx:id="bttEliminarAceptar" layoutX="333.0" layoutY="298.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Eliminar" />
+                        <Button fx:id="bttEliminarCancelar" layoutX="185.0" layoutY="298.0" mnemonicParsing="false" onAction="#bttEliminarCancelar" prefHeight="25.0" prefWidth="70.0" text="Cancelar" />
+                        <Button fx:id="bttEliminarAceptar" layoutX="333.0" layoutY="298.0" mnemonicParsing="false" onAction="#bttEliminarAceptar" prefHeight="25.0" prefWidth="70.0" text="Eliminar" />
                      </children>
                   </AnchorPane>
             </content>

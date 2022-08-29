@@ -5,6 +5,8 @@
 package Controllers;
 
 import App.App;
+import System.Animal;
+import System.Pregunta;
 import Util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -36,6 +38,9 @@ public class OpcionesController implements Initializable {
     
     private ArrayList<Path> pathsP = new ArrayList<>(); 
     private ArrayList<Path> pathsR = new ArrayList<>(); 
+    
+    private String rutaPreg;
+    private String rutaResp;
 
     private Text txtNombreArch;
     @FXML
@@ -43,13 +48,7 @@ public class OpcionesController implements Initializable {
     @FXML
     private Text txtAnimales;
     @FXML
-    private Text txtNombreArch1;
-    @FXML
-    private Text txtNumPregun1;
-    @FXML
-    private Text txtAnimales1;
-    @FXML
-    private ComboBox<?> cbxArchivos;
+    private ComboBox<File> cbxArchivos;
     @FXML
     private Button bttEliminarCancelar;
     @FXML
@@ -58,13 +57,53 @@ public class OpcionesController implements Initializable {
     private Text txtNombreArchP;
     @FXML
     private Text txtNombreArchR;
+    @FXML
+    private Text txtNombreArchivoE;
+    @FXML
+    private Text txtNumPregE;
+    @FXML
+    private Text txtAnE;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        ObservableList<File> archivos = FXCollections.observableArrayList();
         
+        final File carpeta = new File("archivos");
+        for (final File ficheroEntrada : carpeta.listFiles()) {
+            if (ficheroEntrada.isDirectory()) {
+            } else {
+                if(ficheroEntrada.getName().startsWith("preguntas")) {
+                    archivos.add(ficheroEntrada);
+                }
+            }
+        }   
+        
+        cbxArchivos.getItems().setAll(archivos);
+        
+        cbxArchivos.setOnAction(e -> {
+            for (final File ficheroEntrada : carpeta.listFiles()) {
+                if (ficheroEntrada.isDirectory()) {
+                } else {
+                    this.rutaPreg = "archivos\\" + cbxArchivos.getValue().getName();
+                    String[] separarTipo = cbxArchivos.getValue().getName().split("-");
+                    String nombre = separarTipo[1].substring(0, separarTipo[1].lastIndexOf("."));
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("respuestas-");
+                    sb.append(nombre);
+                    sb.append(".txt");
+                    if(ficheroEntrada.getName().equals(sb.toString())) {
+                        this.rutaResp = "archivos\\" + ficheroEntrada.getName();
+                    }
+                    
+                    txtNombreArchivoE.setText(this.rutaPreg);
+                    txtNumPregE.setText(Integer.toString(new Pregunta().getPreguntas(rutaPreg).size()));
+                    txtAnE.setText(new Animal().getAnimales(rutaResp).toString());
+                }
+            }
+        });
     }    
 
     @FXML
@@ -147,5 +186,32 @@ public class OpcionesController implements Initializable {
                 + "respuestas-mamiferos.txt");
         alert.show();
     }
+
+    @FXML
+    private void bttEliminarCancelar(ActionEvent event) {
+        home();
+    }
+
+    @FXML
+    private void bttEliminarAceptar(ActionEvent event) {
+        File ficheroPreg = new File(rutaPreg);
+        File ficheroResp = new File(rutaResp);
+        if (ficheroPreg.delete() && ficheroResp.delete()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Fichero eliminado correctamente");
+            alert.setContentText("Se han eliminado los archivos correctamente");
+            alert.show();
+            home();
+        } else
+            System.out.println("El fichero no puede ser borrado");
+    }
     
+    public void home() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("menu.fxml"));
+            Parent root = fxmlLoader.load();                
+            App.scene.setRoot(root);
+            } catch (IOException ex) {
+        }
+    }
 }

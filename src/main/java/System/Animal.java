@@ -48,7 +48,10 @@ public class Animal {
         return rutaFoto;
     }
     
-     
+    @Override
+    public String toString() {
+        return this.nombre.substring(0,1).toUpperCase() + this.nombre.substring(1);
+    } 
     
     
     

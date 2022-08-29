@@ -45,7 +45,7 @@
             <Font size="9.0" />
          </font>
       </Button>
-      <Button layoutX="494.0" layoutY="162.0" mnemonicParsing="false" onAction="#bttCargarFoto" text="Cargar Foto" visible="false">
+      <Button fx:id="bttCargarFoto" layoutX="494.0" layoutY="162.0" mnemonicParsing="false" onAction="#bttCargarFoto" text="Cargar Foto" visible="false">
          <font>
             <Font size="10.0" />
          </font>

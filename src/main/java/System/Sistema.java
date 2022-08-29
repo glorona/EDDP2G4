@@ -59,14 +59,13 @@ public class Sistema {
          return stb.toString();
     }
     
-    public void escribirRutaUsuario(String rutaFinal, String animal, String rutaArch) throws FileNotFoundException,IOException{
+    public void escribirRutaUsuario(String rutaFinal, String animal, String rutaArch, String nombreArch) throws FileNotFoundException,IOException{
         StringBuilder stb = new StringBuilder();
         
-        stb.append(animal);
+        stb.append(nombreArch);
         
         stb.append("#");
         stb.append(animal);
-        stb.append(" ");
         stb.append(rutaFinal);
         stb.append("\n");
         

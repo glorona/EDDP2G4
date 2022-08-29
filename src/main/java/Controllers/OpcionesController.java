@@ -194,16 +194,30 @@ public class OpcionesController implements Initializable {
 
     @FXML
     private void bttEliminarAceptar(ActionEvent event) {
+        
+        if(cbxArchivos.getValue() == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Archivo no seleccionado");
+            alert.setContentText("Seleccione el archivo a eliminar.");
+            alert.show();
+        }
+        else{
+        
         File ficheroPreg = new File(rutaPreg);
         File ficheroResp = new File(rutaResp);
+      
+            
+        
         if (ficheroPreg.delete() && ficheroResp.delete()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Fichero eliminado correctamente");
             alert.setContentText("Se han eliminado los archivos correctamente");
             alert.show();
             home();
-        } else
+        } else{
             System.out.println("El fichero no puede ser borrado");
+        }
+        }
     }
     
     public void home() {

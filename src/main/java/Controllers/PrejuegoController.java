@@ -77,7 +77,11 @@ public class PrejuegoController implements Initializable {
                         txtArchResp.setText("archivos\\" + ficheroEntrada.getName());
                     }
                     
-                    
+                    Pregunta pr = new Pregunta();
+                    ArrayList<Pregunta> preguntas = pr.getPreguntas(rutaPreg);
+                    for(Pregunta p: preguntas){
+                        maxNum++;
+                    }
                 }
             }
         });
